@@ -9,6 +9,19 @@
 /*!40101 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+-- Dumping database structure for hotel_intel_db
+CREATE DATABASE IF NOT EXISTS `hotel_intel_db` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `hotel_intel_db`;
+
+
+-- Dumping structure for table hotel_intel_db.app_categories
+CREATE TABLE IF NOT EXISTS `app_categories` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 -- Dumping data for table hotel_intel_db.app_categories: ~3 rows (approximately)
 /*!40000 ALTER TABLE `app_categories` DISABLE KEYS */;
 REPLACE INTO `app_categories` (`id`, `name`) VALUES
@@ -16,6 +29,15 @@ REPLACE INTO `app_categories` (`id`, `name`) VALUES
 	(1, 'arts'),
 	(2, 'nightlife');
 /*!40000 ALTER TABLE `app_categories` ENABLE KEYS */;
+
+
+-- Dumping structure for table hotel_intel_db.yelp_categories
+CREATE TABLE IF NOT EXISTS `yelp_categories` (
+  `id` int(11) NOT NULL,
+  `tag` varchar(50) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table hotel_intel_db.yelp_categories: ~56 rows (approximately)
 /*!40000 ALTER TABLE `yelp_categories` DISABLE KEYS */;
@@ -77,6 +99,19 @@ REPLACE INTO `yelp_categories` (`id`, `tag`, `name`) VALUES
 	(54, 'mexican', 'Mexican'),
 	(55, 'tradamerican', 'American (Traditional)');
 /*!40000 ALTER TABLE `yelp_categories` ENABLE KEYS */;
+
+
+-- Dumping structure for table hotel_intel_db.yelp_locations
+CREATE TABLE IF NOT EXISTS `yelp_locations` (
+  `id` int(11) NOT NULL,
+  `yelp_id` varchar(100) NOT NULL DEFAULT '0',
+  `name` varchar(50) DEFAULT NULL,
+  `url` text,
+  `img_url` text,
+  `lat` double DEFAULT NULL,
+  `lon` double DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table hotel_intel_db.yelp_locations: ~57 rows (approximately)
 /*!40000 ALTER TABLE `yelp_locations` DISABLE KEYS */;
@@ -140,6 +175,15 @@ REPLACE INTO `yelp_locations` (`id`, `yelp_id`, `name`, `url`, `img_url`, `lat`,
 	(56, 'l-entrepôt-mont-royal-montréal-2', 'L\'Entrepôt Mont-Royal', 'http://www.yelp.ca/biz/l-entrep%C3%B4t-mont-royal-montr%C3%A9al-2', 'http://s3-media1.fl.yelpcdn.com/bphoto/TvffCcQb6-zpt3xaCQPb7w/ms.jpg', 45.5275586124373, -73.5797399809547);
 /*!40000 ALTER TABLE `yelp_locations` ENABLE KEYS */;
 
+
+-- Dumping structure for table hotel_intel_db.yelp_loc_to_app_cat
+CREATE TABLE IF NOT EXISTS `yelp_loc_to_app_cat` (
+  `yelp_loc_id` int(11) DEFAULT NULL,
+  `app_cat_id` int(11) DEFAULT NULL,
+  KEY `FK_yelp_loc_to_app_cat_yelp_locations` (`yelp_loc_id`),
+  KEY `FK_yelp_loc_to_app_cat_app_categories` (`app_cat_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 -- Dumping data for table hotel_intel_db.yelp_loc_to_app_cat: ~57 rows (approximately)
 /*!40000 ALTER TABLE `yelp_loc_to_app_cat` DISABLE KEYS */;
 REPLACE INTO `yelp_loc_to_app_cat` (`yelp_loc_id`, `app_cat_id`) VALUES
@@ -201,6 +245,15 @@ REPLACE INTO `yelp_loc_to_app_cat` (`yelp_loc_id`, `app_cat_id`) VALUES
 	(55, 2),
 	(56, 2);
 /*!40000 ALTER TABLE `yelp_loc_to_app_cat` ENABLE KEYS */;
+
+
+-- Dumping structure for table hotel_intel_db.yelp_loc_to_yelp_cat
+CREATE TABLE IF NOT EXISTS `yelp_loc_to_yelp_cat` (
+  `yelp_loc_id` int(11) DEFAULT NULL,
+  `yelp_cat_id` int(11) DEFAULT NULL,
+  KEY `FK__yelp_locations` (`yelp_loc_id`),
+  KEY `FK__yelp_categories` (`yelp_cat_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table hotel_intel_db.yelp_loc_to_yelp_cat: ~105 rows (approximately)
 /*!40000 ALTER TABLE `yelp_loc_to_yelp_cat` DISABLE KEYS */;
