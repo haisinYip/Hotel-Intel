@@ -46,5 +46,4 @@ avg_loc = getAvgLocation(loc1, loc2, loc3)
 hotels = getHotelsInAvgLocation(avg_loc, date, number_of_people)
 
 if __name__ == "__main__":
-    #print avg_loc
     print hotels
