@@ -9,11 +9,11 @@
 
 
     <link rel="image_src" href="http://hackathon.expedia.com/sites/all/themes/expedia_apigee/favicon.ico">
-    <link rel="search" type="application/opensearchdescription+xml" href="/static/opensearch.xml" title="Airbnb">
-    <link rel='stylesheet' type='text/css' href='//a.travel-assets.com/uitoolkit/2-35/6fce12b6b9ef39b02199b6d18154f18132de8fb5/core/minifiedCss/brands/exp-responsive.css'/>
+    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="Airbnb">
+    <link rel='stylesheet' type='text/css' href='http://a.travel-assets.com/uitoolkit/2-35/6fce12b6b9ef39b02199b6d18154f18132de8fb5/core/minifiedCss/brands/exp-responsive.css'/>
     
-    <link href="/static/a2.css" media="all" rel="stylesheet" type="text/css" />
-      <link href="/static/a0.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="../static/a2.css" media="all" rel="stylesheet" type="text/css" />
+      <link href="../static/a0.css" media="screen" rel="stylesheet" type="text/css" />
 
 
     <link rel="shortcut icon" type="image/x-icon" href="http://hackathon.expedia.com/sites/all/themes/expedia_apigee/favicon.ico">
@@ -25,104 +25,7 @@
       margin: 0px;
       padding: 0px
     }
-    
-    #map-canvas {
-      height: 600px;
-      width: 700px;
-      margin: 0px;
-      padding: 0px
-    }
-    
-     .labels {
-      color: white;
-      background-color: #F34C44;
-      font-family: "Lucida Grande", "Arial", sans-serif;
-      font-size: 12px;
-      font-weight: bold;
-      text-align: center;
-      width: 40px;     
-      border: 3px solid #F34C44;
-      white-space: nowrap;
-    }
-    
-     .clickedLabels {
-      color: white;
-      background-color: #36A345;
-      font-family: "Lucida Grande", "Arial", sans-serif;
-      font-size: 12px;
-      font-weight: bold;
-      text-align: center;
-      width: 40px;     
-      border: 3px solid #36A345;
-      white-space: nowrap;
-    }
   </style>
-  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
-  <script src="/static/js/markerwithlabel.js" type="text/javascript"></script>
-  <script>
-var map;
-var infowindow;
-var places = [new google.maps.LatLng(45.523299, -73.585786), new google.maps.LatLng(45.526299, -73.599086)];
-var placePrices = ["$5,125", "$3,405"];
-var placeNames = ["Hotel Plateau", "Holiday Inn"];
-var markers = new Array();
-var clickedMarker = -1;
-var redMarkerURL = "http://imgur.com/6eGus1F.png";
-var greenMarkerURL = "http://imgur.com/QNFKk2p.png";
-function initialize() 
-{
-  var startPos = new google.maps.LatLng(45.523299, -73.585786);
-  map = new google.maps.Map(document.getElementById('map-canvas'), {
-    center: startPos,
-    zoom: 14
-  });
-  
-  infowindow = new google.maps.InfoWindow();
-  
-  google.maps.event.addListener(infowindow, 'closeclick', function() 
-  {
-    markers[clickedMarker].setOptions({labelClass:"labels", icon:redMarkerURL});
-  });
-    
-  for(var i = 0; i < places.length; i++)
-  {
-    markers.push(new MarkerWithLabel({
-    position: places[i],
-    draggable: false,
-    map: map,
-    icon: redMarkerURL,
-    labelContent: placePrices[i],
-    labelAnchor: new google.maps.Point(22, 33),
-    labelClass: "labels", // the CSS class for the label
-    labelStyle: {opacity: 1}
-    }));
-    
-    setInfoWindow(markers[i], placeNames[i], i);
-  }
-}
-function setInfoWindow(marker, name, i)
-{
-  google.maps.event.addListener(marker, 'click', function() 
-  {
-    if(clickedMarker != -1)
-      markers[clickedMarker].setOptions({labelClass:"labels", icon:redMarkerURL});
-    
-    clickedMarker = i;
-    marker.setOptions({labelClass:"clickedLabels", icon:greenMarkerURL});
-    infowindow.setContent(name);
-    infowindow.open(map, this);
-  });
-}
-google.maps.event.addDomListener(window, 'load', initialize);
-  </script>
-
-
-
-
-
-
-
-
   </head>
   <body class=" en-CA" id="cities_show_page">
 
@@ -144,6 +47,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
       </ul>
   </div>
 </div>
+</div>
 
 
 <div class="city-page page" id="city">
@@ -156,14 +60,11 @@ google.maps.event.addDomListener(window, 'load', initialize);
         <h1 class="circularbold">Montreal</h1>
         <h2>An entrancing city on an island of extremes, Montreal suits
 up politely, shops maniacally, and seeks peace in silence.</h2>
-        <a class="btn large" c> <font color ="#00355f">Choose Your Experience</font></a>
+        <a class="btn large"> <font color ="#00355f">Choose Your Experience</font></a>
       </div>
     </div>
   </div>
-
-  <div id="jumbo_map">
-    <div id="map-frame"></div>
-  </div>
+ </div>
 
     <div class="featured-neighborhoods section">
       <div class="container">
@@ -230,7 +131,7 @@ up politely, shops maniacally, and seeks peace in silence.</h2>
   <p>
   </p>
 </div>
-</a>
+<!--</a>-->
 
       </li>
       <li class=" tile " data-neighborhood-id="2564" data-neighborhood-permalink="shimokitazawa" style="">
@@ -289,7 +190,7 @@ up politely, shops maniacally, and seeks peace in silence.</h2>
   <p>
   </p>
 </div>
-</a>
+<!--</a>-->
 
       </li>
       <li class=" tile " data-neighborhood-id="2541" data-neighborhood-permalink="tsukiji" style="">
@@ -329,7 +230,7 @@ up politely, shops maniacally, and seeks peace in silence.</h2>
   <p>
   </p>
 </div>
-</a>
+<!--</a>-->
 
       </li>
 </ul>
