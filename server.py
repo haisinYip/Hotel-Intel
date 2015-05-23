@@ -11,5 +11,9 @@ app = Flask(__name__)
 def renderMainPage():
 	return render_template('index.html')
 
+@app.route("/HotelMap", methods=["GET"])
+def renderMapPage():
+	return render_template('HotelMap.html')
+
 if __name__ == "__main__":
     app.run(debug=True)
