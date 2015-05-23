@@ -32,6 +32,6 @@ def getDataFromDB(query):
         return data
  
 if __name__ == '__main__':
-    query = "SELECT * FROM app_categories"
+    query = "select yelp_locations.id,yelp_loc_to_yelp_cat.yelp_loc_id, count(*) from yelp_locations,yelp_loc_to_yelp_cat where yelp_locations.id=yelp_loc_to_yelp_cat.yelp_loc_id group by yelp_locations.id order by count(*) DESC LIMIT 5"
     d = getDataFromDB(query)
     print d
