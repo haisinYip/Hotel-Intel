@@ -9,14 +9,21 @@
 			height: 100%;
 			width: 100%;
 			margin: 0px;
-			padding: 0px
+			padding: 0px;
+			font-family: Arial
 		}
 		
 		#map-canvas {
+			float: left;
 			height: 600px;
 			width: 700px;
 			margin: 0px;
 			padding: 0px
+		}
+		
+		#hotel-info {
+			display: none;
+			margin-left: 750px
 		}
 	  
 	   .labels {
@@ -26,7 +33,7 @@
 			font-size: 12px;
 			font-weight: bold;
 			text-align: center;
-			width: 40px;     
+			width: 45px;     
 			border: 3px solid #F34C44;
 			white-space: nowrap;
 		}
@@ -38,7 +45,7 @@
 			font-size: 12px;
 			font-weight: bold;
 			text-align: center;
-			width: 40px;     
+			width: 45px;     
 			border: 3px solid #36A345;
 			white-space: nowrap;
 		}
@@ -48,9 +55,130 @@
 	<script>
 var map;
 var infowindow;
-var places = [new google.maps.LatLng(45.523299, -73.585786), new google.maps.LatLng(45.526299, -73.599086)];
-var placePrices = ["$5,125", "$3,405"];
-var placeNames = ["Hotel Plateau", "Holiday Inn"];
+var results = {
+  "MatchingHotelCount": "14",
+  "HotelCount": "3",
+  "HotelInfoList": {
+    "HotelInfo": [
+      {
+        "HotelID": "11039628",
+        "Name": "LikeAHotel - Le Chambord",
+        "Location": {
+          "StreetAddress": "4462 Chambord",
+          "City": "Montreal",
+          "Province": "QC",
+          "Country": "CAN",
+          "GeoLocation": {
+            "Latitude": "45.529663",
+            "Longitude": "-73.577213"
+          }
+        },
+        "Description": "Located in Plateau Mont Royal, this apartment is within 2 mi (3 km) of Lafontaine Park, University of Quebec-Montreal, and Percival Molson Memorial Stadium. Notre Dame Basilica and Bonsecours Market are also within 3 mi (5 km).",
+        "FeaturedOffer": {
+          "Price": {
+            "BaseRate": {
+              "Value": "175.95",
+              "Currency": "USD"
+            },
+            "TaxRcAndFees": {
+              "Value": "49.65",
+              "Currency": "USD"
+            },
+            "TotalRate": {
+              "Value": "225.60",
+              "Currency": "USD"
+            }
+          },
+          "CheckInDate": "2015-05-25",
+          "LengthOfStay": "3",
+          "DetailsUrl": "http://www.expedia.com/go/hotel/info/11039628/2015-05-25/2015-05-28?NumRooms=1&NumAdult-Room1=2&eapid=0&langid=1033"
+        },
+        "DetailsUrl": "http://www.expedia.com/go/hotel/info/11039628/0/0?eapid=0&langid=1033",
+        "StarRating": "4.0",
+        "ThumbnailUrl": "http://media.expedia.com/hotels/12000000/11040000/11039700/11039628/11039628_1_t.jpg",
+        "GuestReviewCount": "0"
+      },
+      {
+        "HotelID": "9561135",
+        "Name": "MTLVacationRentals - The Penthouse",
+        "Location": {
+          "StreetAddress": "1219 Avenue du Mont-Royal Est",
+          "City": "Montreal",
+          "Province": "QC",
+          "Country": "CAN",
+          "GeoLocation": {
+            "Latitude": "45.529031",
+            "Longitude": "-73.578262"
+          }
+        },
+        "Description": "Located in Plateau Mont Royal, this apartment is within 2 mi (3 km) of Lafontaine Park, University of Quebec-Montreal, and Percival Molson Memorial Stadium. Notre Dame Basilica and Bonsecours Market are also within 3 mi (5 km). ",
+        "FeaturedOffer": {
+          "Price": {
+            "BaseRate": {
+              "Value": "219.00",
+              "Currency": "USD"
+            },
+            "TaxRcAndFees": {
+              "Value": "41.61",
+              "Currency": "USD"
+            },
+            "TotalRate": {
+              "Value": "260.61",
+              "Currency": "USD"
+            }
+          },
+          "CheckInDate": "2015-05-25",
+          "LengthOfStay": "3",
+          "DetailsUrl": "http://www.expedia.com/go/hotel/info/9561135/2015-05-25/2015-05-28?NumRooms=1&NumAdult-Room1=2&eapid=0&langid=1033"
+        },
+        "DetailsUrl": "http://www.expedia.com/go/hotel/info/9561135/0/0?eapid=0&langid=1033",
+        "StarRating": "4.0",
+        "ThumbnailUrl": "http://media.expedia.com/hotels/10000000/9570000/9561200/9561135/9561135_17_t.jpg",
+        "GuestReviewCount": "0"
+      },
+      {
+        "HotelID": "9646104",
+        "Name": "LikeAHotel - Le Mont-Royal",
+        "Location": {
+          "StreetAddress": "1304, avenue Mont-Royal",
+          "City": "Montreal",
+          "Province": "QC",
+          "Country": "CAN",
+          "GeoLocation": {
+            "Latitude": "45.529873",
+            "Longitude": "-73.577473"
+          }
+        },
+        "Description": "Located in Plateau Mont Royal, this apartment is within 2 mi (3 km) of Lafontaine Park, University of Quebec-Montreal, and Percival Molson Memorial Stadium. Notre Dame Basilica and Bonsecours Market are also within 3 mi (5 km). ",
+        "FeaturedOffer": {
+          "Price": {
+            "BaseRate": {
+              "Value": "58.87",
+              "Currency": "USD"
+            },
+            "TaxRcAndFees": {
+              "Value": "17.67",
+              "Currency": "USD"
+            },
+            "TotalRate": {
+              "Value": "76.54",
+              "Currency": "USD"
+            }
+          },
+          "CheckInDate": "2015-05-25",
+          "LengthOfStay": "3",
+          "DetailsUrl": "http://www.expedia.com/go/hotel/info/9646104/2015-05-25/2015-05-28?NumRooms=1&NumAdult-Room1=2&eapid=0&langid=1033"
+        },
+        "DetailsUrl": "http://www.expedia.com/go/hotel/info/9646104/0/0?eapid=0&langid=1033",
+        "StarRating": "3.5",
+        "ThumbnailUrl": "http://media.expedia.com/hotels/10000000/9650000/9646200/9646104/9646104_31_t.jpg",
+        "GuestRating": "4.8",
+        "GuestReviewCount": "4"
+      }
+    ]
+  }
+}
+
 var markers = new Array();
 var clickedMarker = -1;
 
@@ -59,47 +187,74 @@ var greenMarkerURL = "http://imgur.com/QNFKk2p.png";
 
 function initialize() 
 {
-	var startPos = new google.maps.LatLng(45.523299, -73.585786);
+	map = new google.maps.Map(document.getElementById('map-canvas'));
+	
+	var bounds = new google.maps.LatLngBounds();
+	for(var i = 0; i < results.HotelInfoList.HotelInfo.length; i++) 
+	{
+		var pos = new google.maps.LatLng(results.HotelInfoList.HotelInfo[i].Location.GeoLocation.Latitude, 
+			results.HotelInfoList.HotelInfo[i].Location.GeoLocation.Longitude)
+	
+		bounds.extend(pos);
+	}
 
-	map = new google.maps.Map(document.getElementById('map-canvas'), {
-		center: startPos,
-		zoom: 14
+	map.fitBounds(bounds);
+	
+	google.maps.event.addListenerOnce(map, "idle", function() 
+	{ 
+		map.setZoom(map.getZoom() - 1);
 	});
 	
 	infowindow = new google.maps.InfoWindow();
 	
 	google.maps.event.addListener(infowindow, 'closeclick', function() 
 	{
+		document.getElementById("hotel-info").style.display = "none";
+
 		markers[clickedMarker].setOptions({labelClass:"labels", icon:redMarkerURL});
 	});
 		
-	for(var i = 0; i < places.length; i++)
+	for(var i = 0; i < results.HotelInfoList.HotelInfo.length; i++)
 	{
+		var pos = new google.maps.LatLng(results.HotelInfoList.HotelInfo[i].Location.GeoLocation.Latitude, 
+			results.HotelInfoList.HotelInfo[i].Location.GeoLocation.Longitude)
+	
 		markers.push(new MarkerWithLabel({
-		position: places[i],
+		position: pos,
 		draggable: false,
 		map: map,
 		icon: redMarkerURL,
-		labelContent: placePrices[i],
-		labelAnchor: new google.maps.Point(22, 33),
+		labelContent: '$' + results.HotelInfoList.HotelInfo[i].FeaturedOffer.Price.TotalRate.Value,
+		labelAnchor: new google.maps.Point(25, 33),
 		labelClass: "labels", // the CSS class for the label
 		labelStyle: {opacity: 1}
 		}));
 		
-		setInfoWindow(markers[i], placeNames[i], i);
+		setMarkerListener(markers[i], results.HotelInfoList.HotelInfo[i], i);
 	}
 }
 
-function setInfoWindow(marker, name, i)
+function setMarkerListener(marker, place, i)
 {
 	google.maps.event.addListener(marker, 'click', function() 
 	{
+		document.getElementById("hotel-info").style.display = "block";
+		
+		document.getElementById("hotelimg").src = place.ThumbnailUrl;
+		document.getElementById("name").innerHTML = place.Name;
+		document.getElementById("address").innerHTML = place.Location.StreetAddress + ', ' + place.Location.City + ', ' + place.Location.Province
+			+ ', ' + place.Location.Country;
+		document.getElementById("rate").innerHTML = '$' + place.FeaturedOffer.Price.TotalRate.Value + ' ' + place.FeaturedOffer.Price.TotalRate.Currency;
+		document.getElementById("rating").innerHTML = place.StarRating;
+		document.getElementById("description").innerHTML = place.Description;
+		document.getElementById("details").href = place.DetailsUrl;
+	
 		if(clickedMarker != -1)
 			markers[clickedMarker].setOptions({labelClass:"labels", icon:redMarkerURL});
 		
 		clickedMarker = i;
 		marker.setOptions({labelClass:"clickedLabels", icon:greenMarkerURL});
-		infowindow.setContent(name);
+		infowindow.setContent(place.Name);
 		infowindow.open(map, this);
 	});
 }
@@ -110,6 +265,17 @@ google.maps.event.addDomListener(window, 'load', initialize);
 	</head>
 	<body>
 		<div><h1>Hotel Map</h1></div>
-		<div id="map-canvas"></div>
+		<div id = "map-canvas"></div>
+		<div id = "hotel-info">
+			<h1 id = "name"></h1>
+			<img src = "" id = "hotelimg">
+			<br><br>
+			<b>Address:</b> <span id = "address"></span><br>
+			<b>Total rate:</b> <span id = "rate"></span><br>
+			<b>Star rating:</b> <span id = "rating"></span>/5.0<br>
+			<b>Description:</b> <span id = "description"></span>
+			<br><br>
+			<p style = "text-align:center"><a href = "" target="_blank" id = "details">Click here for more info</a></p>
+		</div>
 	<body>
 </html>
