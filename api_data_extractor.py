@@ -42,9 +42,9 @@ def getHotelsInAvgLocation(avg_location, date, number_of_people):
 
 	return hotels_stripped_data
 	
-#avg_loc = getAvgLocation(loc1, loc2, loc3)
-#hotels = getHotelsInAvgLocation(avg_loc, date, number_of_people)
+avg_loc = getAvgLocation(loc1, loc2, loc3)
+hotels = getHotelsInAvgLocation(avg_loc, date, number_of_people)
 
 if __name__ == "__main__":
     #print avg_loc
-    #print hotels
+    print hotels
