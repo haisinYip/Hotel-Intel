@@ -18,13 +18,28 @@
         margin: 0px;
         padding: 0px
       }
+	  
+	   .labels {
+		color: white;
+		background-color: #F34C44;
+		font-family: "Lucida Grande", "Arial", sans-serif;
+		font-size: 12px;
+		font-weight: bold;
+		text-align: center;
+		width: 40px;     
+		border: 3px solid #F34C44;
+		white-space: nowrap;
+	}
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+	<script src="js/markerwithlabel.js" type="text/javascript"></script>
     <script>
 var map;
+var infowindow;
 var places = [new google.maps.LatLng(45.523299, -73.585786), new google.maps.LatLng(45.526299, -73.599086)];
 var placePrices = ["$5,125", "$3,405"];
 var placeNames = ["Hotel Plateau", "Holiday Inn"];
+var markers = new Array();
 
 function initialize() 
 {
@@ -34,15 +49,33 @@ function initialize()
 		center: startPos,
 		zoom: 14
 	});
+	
+	infowindow = new google.maps.InfoWindow();
 		
 	for(var i = 0; i < places.length; i++)
 	{
-		var marker = new google.maps.InfoWindow({
-		map: map,
+		markers.push(new MarkerWithLabel({
 		position: places[i],
-		content: placePrices[i]
-		})
+		draggable: false,
+		map: map,
+		icon: "http://imgur.com/6eGus1F.png",
+		labelContent: placePrices[i],
+		labelAnchor: new google.maps.Point(22, 33),
+		labelClass: "labels", // the CSS class for the label
+		labelStyle: {opacity: 1}
+		}));
+		
+		setInfoWindow(markers[i], placeNames[i]);
 	}
+}
+
+function setInfoWindow(marker, name)
+{
+	google.maps.event.addListener(marker, 'click', function() 
+	{
+		infowindow.setContent(name);
+		infowindow.open(map, this);
+	});
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
