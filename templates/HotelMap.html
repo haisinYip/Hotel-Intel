@@ -51,11 +51,15 @@
 		}
 	</style>
 	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
-	<script src="js/markerwithlabel.js" type="text/javascript"></script>
+	<script src="/static/js/markerwithlabel.js" type="text/javascript"></script>
 	<script>
 var map;
 var infowindow;
-var results = JSON.parse({{ hotels_data|safe }});
+
+//console.log(JSON.parse({{hotels_data|safe}}));
+var results = {{hotels_data|safe}};
+console.log(results);
+
 /*
 var results = {
   "MatchingHotelCount": "14",

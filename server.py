@@ -14,7 +14,8 @@ def renderMainPage():
 @app.route("/HotelMap", methods=["GET"])
 def renderMapPage():
 	strng = json.dumps(getHotelsInAvgLocation((47.6063889,-122.3308333), ('2015-05-25', '2015-05-28'), 2))
-	return render_template('HotelMap.html', data = strng )
+	print 'rendering hotel page: \n', strng
+	return render_template('HotelMap.html', hotels_data = strng )
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0')
