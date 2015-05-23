@@ -5,7 +5,7 @@ from flask import Flask, session, request, render_template, flash, redirect, url
 from db_data_extractor import *
 from api_data_extractor import *
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 
 @app.route("/", methods=["GET"])
 def renderMainPage():
