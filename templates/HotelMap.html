@@ -55,6 +55,8 @@
 	<script>
 var map;
 var infowindow;
+var results = JSON.parse({{ hotels_data|safe }});
+/*
 var results = {
   "MatchingHotelCount": "14",
   "HotelCount": "3",
@@ -178,7 +180,7 @@ var results = {
     ]
   }
 }
-
+*/
 var markers = new Array();
 var clickedMarker = -1;
 
