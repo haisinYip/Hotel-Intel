@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hotel Map</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      html, body {
+        height: 100%;
+		width: 100%;
+        margin: 0px;
+        padding: 0px
+		}
+		
+		#map-canvas {
+        height: 600px;
+		width: 700px;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+    <script>
+var map;
+var places = [new google.maps.LatLng(45.523299, -73.585786), new google.maps.LatLng(45.526299, -73.599086)];
+var placePrices = ["$5,125", "$3,405"];
+var placeNames = ["Hotel Plateau", "Holiday Inn"];
+
+function initialize() 
+{
+	var startPos = new google.maps.LatLng(45.523299, -73.585786);
+
+	map = new google.maps.Map(document.getElementById('map-canvas'), {
+		center: startPos,
+		zoom: 14
+	});
+		
+	for(var i = 0; i < places.length; i++)
+	{
+		var marker = new google.maps.InfoWindow({
+		map: map,
+		position: places[i],
+		content: placePrices[i]
+		})
+	}
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+  </head>
+  <body>
+	<div><h1>Hotel Map</h1></div>
+    <div id="map-canvas"></div>
+  </body>
+</html>
