@@ -1,30 +1,61 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Hotel Map</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-    <style>
-      html, body {
-        height: 100%;
-		width: 100%;
-        margin: 0px;
-        padding: 0px
+	<title>Hotel Map</title>
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+	<meta charset="utf-8">
+	<style>
+		html, body {
+			height: 100%;
+			width: 100%;
+			margin: 0px;
+			padding: 0px
 		}
 		
 		#map-canvas {
-        height: 600px;
-		width: 700px;
-        margin: 0px;
-        padding: 0px
-      }
-    </style>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
-    <script>
+			height: 600px;
+			width: 700px;
+			margin: 0px;
+			padding: 0px
+		}
+	  
+	   .labels {
+			color: white;
+			background-color: #F34C44;
+			font-family: "Lucida Grande", "Arial", sans-serif;
+			font-size: 12px;
+			font-weight: bold;
+			text-align: center;
+			width: 40px;     
+			border: 3px solid #F34C44;
+			white-space: nowrap;
+		}
+		
+	   .clickedLabels {
+			color: white;
+			background-color: #36A345;
+			font-family: "Lucida Grande", "Arial", sans-serif;
+			font-size: 12px;
+			font-weight: bold;
+			text-align: center;
+			width: 40px;     
+			border: 3px solid #36A345;
+			white-space: nowrap;
+		}
+	</style>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+	<script src="js/markerwithlabel.js" type="text/javascript"></script>
+	<script>
 var map;
+var infowindow;
 var places = [new google.maps.LatLng(45.523299, -73.585786), new google.maps.LatLng(45.526299, -73.599086)];
 var placePrices = ["$5,125", "$3,405"];
 var placeNames = ["Hotel Plateau", "Holiday Inn"];
+var markers = new Array();
+var clickedMarker = -1;
+
+var redMarkerURL = "http://imgur.com/6eGus1F.png";
+var greenMarkerURL = "http://imgur.com/QNFKk2p.png";
 
 function initialize() 
 {
@@ -34,23 +65,51 @@ function initialize()
 		center: startPos,
 		zoom: 14
 	});
+	
+	infowindow = new google.maps.InfoWindow();
+	
+	google.maps.event.addListener(infowindow, 'closeclick', function() 
+	{
+		markers[clickedMarker].setOptions({labelClass:"labels", icon:redMarkerURL});
+	});
 		
 	for(var i = 0; i < places.length; i++)
 	{
-		var marker = new google.maps.InfoWindow({
-		map: map,
+		markers.push(new MarkerWithLabel({
 		position: places[i],
-		content: placePrices[i]
-		})
+		draggable: false,
+		map: map,
+		icon: redMarkerURL,
+		labelContent: placePrices[i],
+		labelAnchor: new google.maps.Point(22, 33),
+		labelClass: "labels", // the CSS class for the label
+		labelStyle: {opacity: 1}
+		}));
+		
+		setInfoWindow(markers[i], placeNames[i], i);
 	}
+}
+
+function setInfoWindow(marker, name, i)
+{
+	google.maps.event.addListener(marker, 'click', function() 
+	{
+		if(clickedMarker != -1)
+			markers[clickedMarker].setOptions({labelClass:"labels", icon:redMarkerURL});
+		
+		clickedMarker = i;
+		marker.setOptions({labelClass:"clickedLabels", icon:greenMarkerURL});
+		infowindow.setContent(name);
+		infowindow.open(map, this);
+	});
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
-    </script>
-  </head>
-  <body>
-	<div><h1>Hotel Map</h1></div>
-    <div id="map-canvas"></div>
-  </body>
+	</script>
+	</head>
+	<body>
+		<div><h1>Hotel Map</h1></div>
+		<div id="map-canvas"></div>
+	<body>
 </html>
