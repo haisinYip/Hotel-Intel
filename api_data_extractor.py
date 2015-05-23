@@ -48,3 +48,4 @@ def getHotelsInAvgLocation(avg_location, date, number_of_people):
 if __name__ == "__main__":
     #print avg_loc
     #print hotels
+    pass
