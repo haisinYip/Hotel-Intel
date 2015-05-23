@@ -250,7 +250,7 @@ function setMarkerListener(marker, place, i)
 		document.getElementById("name").innerHTML = place.Name;
 		document.getElementById("address").innerHTML = place.Location.StreetAddress + ', ' + place.Location.City + ', ' + place.Location.Province
 			+ ', ' + place.Location.Country;
-		document.getElementById("rate").innerHTML = '$' + place.FeaturedOffer.Price.TotalRate.Value + ' ' + place.FeaturedOffer.Price.TotalRate.Currency;
+		document.getElementById("rate").innerHTML = '$' + place.Price.TotalRate.Value + ' ' + place.Price.TotalRate.Currency;
 		document.getElementById("rating").innerHTML = place.StarRating;
 		document.getElementById("description").innerHTML = place.Description;
 		document.getElementById("details").href = place.DetailsUrl;
