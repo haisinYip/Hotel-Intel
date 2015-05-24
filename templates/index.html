@@ -16,6 +16,34 @@
 
     <link rel="shortcut icon" type="image/x-icon" href="http://hackathon.expedia.com/sites/all/themes/expedia_apigee/favicon.ico">
 
+<!--jQuery References--> 
+<script src="http://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.min.js" type="text/javascript"></script>
+
+<!--Theme-->
+<link href="http://cdn.wijmo.com/themes/aristo/jquery-wijmo.css" rel="stylesheet" type="text/css" />
+
+<!--Wijmo Widgets CSS-->
+<link href="http://cdn.wijmo.com/jquery.wijmo-pro.all.3.20151.69.min.css" rel="stylesheet" type="text/css" />
+
+<!--Wijmo Widgets JavaScript-->
+<script src="http://cdn.wijmo.com/jquery.wijmo-open.all.3.20151.69.min.js" type="text/javascript"></script>
+<script src="http://cdn.wijmo.com/jquery.wijmo-pro.all.3.20151.69.min.js" type="text/javascript"></script>
+<script src="http://cdn.wijmo.com/interop/wijmo.data.ajax.3.20151.69.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    $("#textbox1").wijinputdate(
+        {
+            showTrigger: true
+    });
+    $("#textbox2").wijinputdate(
+        {
+            showTrigger: true
+    });
+});
+</script>
+
 <style>
     html, body {
       height: 100%;
@@ -86,7 +114,10 @@ up politely, shops maniacally, and seeks peace in silence.</h2>
     </div>
   </div>
  </div>
-
+  Check-in
+  <input type="text" id="textbox1" />
+  Check-out
+  <input type="text" id="textbox2" />
     <div class="featured-neighborhoods section">
       <div class="container">
         <div class="row">

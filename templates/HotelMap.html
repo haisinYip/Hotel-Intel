@@ -59,12 +59,17 @@ var infowindow;
 //console.log(JSON.parse({{hotels_data|safe}}));
 var results = {{hotels_data|safe}};
 console.log(results);
+var experiencePlaces = [{"Name": "McDonald's", "Location": {"Latitude": "45.529863", "Longitude": "-73.577013"}}, 
+	{"Name": "Theatre", "Location": {"Latitude": "45.529231", "Longitude": "-73.578462"}}, 
+	{"Name": "Night Club", "Location": {"Latitude": "45.529673", "Longitude": "-73.577673"}}];
 
 var markers = new Array();
+var experienceMarkers = new Array();
 var clickedMarker = -1;
 
 var redMarkerURL = "http://imgur.com/6eGus1F.png";
 var greenMarkerURL = "http://imgur.com/QNFKk2p.png";
+var experienceMarkerURL = "http://imgur.com/Ztc6QMl.png";
 
 function initialize() 
 {
@@ -75,6 +80,13 @@ function initialize()
 	{
 		var pos = new google.maps.LatLng(results.HotelInfoList.HotelInfo[i].Location.GeoLocation.Latitude, 
 			results.HotelInfoList.HotelInfo[i].Location.GeoLocation.Longitude)
+	
+		bounds.extend(pos);
+	}
+	
+	for(var i = 0; i < experiencePlaces.length; i++) 
+	{
+		var pos = new google.maps.LatLng(experiencePlaces[i].Location.Latitude, experiencePlaces[i].Location.Longitude);
 	
 		bounds.extend(pos);
 	}
@@ -113,6 +125,19 @@ function initialize()
 		
 		setMarkerListener(markers[i], results.HotelInfoList.HotelInfo[i], i);
 	}
+	
+	for(var i = 0; i < experiencePlaces.length; i++)
+		{
+			var pos = new google.maps.LatLng(experiencePlaces[i].Location.Latitude, experiencePlaces[i].Location.Longitude);
+		
+			experienceMarkers.push(new google.maps.Marker({
+				map: map,
+				position: pos,
+				icon: experienceMarkerURL
+			}));
+			
+			setExperienceMarkerListener(experienceMarkers[i], experiencePlaces[i]);
+		}
 }
 
 function setMarkerListener(marker, place, i)
@@ -148,6 +173,20 @@ function setMarkerListener(marker, place, i)
 	});
 }
 
+function setExperienceMarkerListener(marker, place)
+{
+	google.maps.event.addListener(marker, 'click', function() 
+	{
+		if(clickedMarker != -1)
+			markers[clickedMarker].setOptions({labelClass:"labels", icon:redMarkerURL});
+			
+		document.getElementById("hotel-info").style.display = "none";
+			
+		infowindow.setContent(place.Name);
+		infowindow.open(map, this);
+	});
+}
+
 google.maps.event.addDomListener(window, 'load', initialize);
 
 	</script>
@@ -167,6 +206,11 @@ google.maps.event.addDomListener(window, 'load', initialize);
 			<br><br>
 			<p style = "text-align:center"><a href = "" target="_blank" id = "details">Click here for more info</a></p>
 			</div>
+		</div>
+		<div id = "legend" style = "position: absolute; top: 700px">
+		<b>Legend</b><br>
+		Red/green: Hotel<br>
+		Blue: Experience point
 		</div>
 	</body>
 </html>
