@@ -82,6 +82,8 @@ $(document).ready(function () {
     load_experience_results();
 
 });
+
+
 </script>
 
 <style>
@@ -130,9 +132,11 @@ $(document).ready(function () {
       '&nll=' + experience_results[nightlife_selection]['lat'] + ',' + experience_results[nightlife_selection]['lon'] + '~' + experience_results[nightlife_selection]['name'];
 
     console.log(url);
+
+    $('#hotelmap').attr('src', url);
     //alert(url);
 
-    document.location.href = url;
+    //document.location.href = url;
 
   }
   </script>
@@ -314,7 +318,7 @@ up politely, shops maniacally, and seeks peace in silence.</h2>
 <!--       <div class="container">
         <div class="row">
           <div class="span12  center"> -->
-            <iframe src="http://45.55.140.88:5000/HotelMap?df=2015-05-24&dt=2015-05-26&g=4&fll=45.5310898,-73.5814667~Le%20Quartier%20G%C3%A9n%C3%A9ral&ell=45.5181389,-73.5825729~Divan%20Orange&nll=45.5227203,-73.5934219~Dieu%20du%20Ciel" style="width:100%; height:1200px; border: 0px; overflow:hidden;"></iframe>
+            <iframe id="hotelmap" src="" style="width:100%; height:1200px; border: 0px; overflow:hidden; padding: 0px 100px 0px 100px;"></iframe>
 <!--           </div>
         </div>
       </div>

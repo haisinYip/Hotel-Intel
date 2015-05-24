@@ -130,6 +130,8 @@ function initialize()
 		
 		setMarkerListener(markers[i], results.HotelInfoList.HotelInfo[i], i);
 	}
+
+	google.maps.event.trigger(markers[0], 'click');
 	
 	for(var i = 0; i < experiencePlaces.length; i++)
 		{
@@ -228,13 +230,10 @@ google.maps.event.addDomListener(window, 'load', initialize);
 			<p style = "text-align:center"><a href = "" target="_blank" id = "details">Click here for more info</a></p>
 			</div>
 		</div>
-		<!--
 		<div id = "legend" style = "position: absolute; top: 700px">
 		<b>Legend</b><br>
 		Red/green: Hotel<br>
 		Blue: Experience point
-		<img data-height="676" data-width="1300" src="../static/food_icon.png" />
 		</div>
-		-->
 	</body>
 </html>
