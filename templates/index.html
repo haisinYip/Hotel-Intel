@@ -103,32 +103,6 @@ up politely, shops maniacally, and seeks peace in silence.</h2>
     <h2>Food</h2>
 
     <select id="food-type" data-wizard-action="{&quot;cruiseDestination&quot; : &quot;$value1&quot;}" class="" data-select-value="" name="select" data-wizard-owner="destination"> 
-<!-- <option value=" French "> French  </option>
-<option value=" Breakfast & Brunch "> Breakfast & Brunch  </option>
-<option value=" Canadian (New) "> Canadian (New)  </option>
-<option value=" Burgers "> Burgers  </option>
-<option value=" Vegetarian "> Vegetarian  </option>
-<option value=" Cocktail Bars "> Cocktail Bars  </option>
-<option value=" Coffee & Tea "> Coffee & Tea  </option>
-<option value=" Bakeries "> Bakeries  </option>
-<option value=" Seafood "> Seafood  </option>
-<option value=" Diners "> Diners  </option>
-<option value=" Sushi Bars "> Sushi Bars  </option>
-<option value=" Barbeque "> Barbeque  </option>
-<option value=" Portuguese "> Portuguese  </option>
-<option value=" Mediterranean "> Mediterranean  </option>
-<option value=" Lebanese "> Lebanese  </option>
-<option value=" Cafes "> Cafes  </option>
-<option value=" Delis "> Delis  </option>
-<option value=" Australian "> Australian  </option>
-<option value=" Ethnic Food "> Ethnic Food  </option>
-<option value=" Fast Food "> Fast Food  </option>
-<option value=" Middle Eastern "> Middle Eastern  </option>
-<option value=" Poutineries "> Poutineries  </option>
-<option value=" Korean "> Korean  </option>
-<option value=" Fish & Chips "> Fish & Chips  </option>
-<option value=" Venezuelan "> Venezuelan  </option>
- -->
     </select> 
     <!--<p>Trendy and Cool</p>-->
   </div>
@@ -162,31 +136,7 @@ up politely, shops maniacally, and seeks peace in silence.</h2>
     <h2>Entertainment</h2>
     <!--<p>Down-to-Earth and Affordable</p>-->
      <select id="entertainment-type" data-wizard-action="{&quot;cruiseDestination&quot; : &quot;$value1&quot;}" class="" data-select-value="" name="select" data-wizard-owner="destination">   
-<!-- <option value=" Bars "> Bars  </option>
-<option value=" Music Venues "> Music Venues  </option>
-<option value=" Dance Clubs "> Dance Clubs  </option>
-<option value=" Performing Arts "> Performing Arts  </option>
-<option value=" Jazz & Blues "> Jazz & Blues  </option>
-<option value=" Dive Bars "> Dive Bars  </option>
-<option value=" Arts & Entertainment "> Arts & Entertainment  </option>
-<option value=" Comedy Clubs "> Comedy Clubs  </option>
-<option value=" Cinema "> Cinema  </option>
-<option value=" Parks "> Parks  </option>
-<option value=" Vegan "> Vegan  </option>
-<option value=" Musicians "> Musicians  </option>
-<option value=" Tapas Bars "> Tapas Bars  </option>
-<option value=" Arts & Crafts "> Arts & Crafts  </option>
-<option value=" Women's Clothing "> Women's Clothing  </option>
-<option value=" Costumes "> Costumes  </option>
-<option value=" Accessories "> Accessories  </option>
-<option value=" Art Supplies "> Art Supplies  </option>
-<option value=" Cards & Stationery "> Cards & Stationery  </option>
-<option value=" Art Schools "> Art Schools  </option>
-<option value=" Bookstores "> Bookstores  </option>
-<option value=" Antiques "> Antiques  </option>
-<option value=" Art Galleries "> Art Galleries  </option>
-<option value=" Sporting Goods "> Sporting Goods  </option>
- -->       </select> 
+     </select> 
   </div>
 </div>
 <div class="blurb">
@@ -336,11 +286,34 @@ for (var idx = 0; idx < experience_results.length; idx++) {
   } 
   console.log(experienceselector);
   var experience_select = document.getElementById(experienceselector);
-  experience_select.options[experience_select.options.length] = new Option(experience['yelptag'], experience['locationid']);
+  experience_select.options[experience_select.options.length] = new Option(experience['yelptag'], idx);
 
   console.log(experience);
 } 
 
+
+var date_from = '01012015';
+var date_to = '01032015';
+var guests = 5;
+
+var food_selection = document.getElementById( "food-type" );
+food_selection = food_selection.options[ food_selection.selectedIndex ].value;
+
+var entertainment_selection = document.getElementById( "entertainment-type" );
+entertainment_selection = entertainment_selection.options[ entertainment_selection.selectedIndex ].value;
+
+var nightlife_selection = document.getElementById( "nightlife-type" );
+nightlife_selection = nightlife_selection.options[ nightlife_selection.selectedIndex ].value;
+
+var url = 
+  'df=' + date_from + 
+  '&dt=' + date_to + 
+  '&g=' + guests + 
+  '&fll=' + experience_results[food_selection]['lat'] + ',' + experience_results[food_selection]['lon'] + 
+  '&ell=' + experience_results[entertainment_selection]['lat'] + ',' + experience_results[entertainment_selection]['lon'] + 
+  '&nll=' + experience_results[nightlife_selection]['lat'] + ',' + experience_results[nightlife_selection]['lon'];
+
+console.log(url);
 
 
 </script>
