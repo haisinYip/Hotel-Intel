@@ -25,5 +25,6 @@ def getAvgLocation(location_1, location_2, location_3):
 def getHotelsInAvgLocation(avg_location, date, number_of_people):
 	query = 'maxhotels=10&location=' + str(avg_location[0]) + '%2C%20' + str(avg_location[1]) + '&radius=2km&checkInDate=' + date[0] + '&checkOutDate=' + date[1] + '&adults=' + str(number_of_people) + '&sort=price&apikey=' + EXPEDIA_API_KEY
 	url = EXPEDIA_BASE_URL + query
+	print "getting info from url ", url
 	response = json.load(urllib2.urlopen(url))
 	return response

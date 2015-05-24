@@ -18,21 +18,29 @@ def renderMainPage():
 
 @app.route("/HotelMap", methods=["GET"])
 def renderMapPage():
-	strng = json.dumps(getHotelsInAvgLocation((47.6063889,-122.3308333), ('2015-05-25', '2015-05-28'), 2))
+	hotel_params = get_hotel_params(request)
+	print 'hotel params are: ', hotel_params
+	#avg_ll, dates, guests = hotel_params
+	strng = json.dumps(getHotelsInAvgLocation(hotel_params[0], hotel_params[1], hotel_params[2]))
+	#strng = json.dumps(getHotelsInAvgLocation((47.6063889,-122.3308333), ('2015-05-25', '2015-05-28'), 2))
 	print 'rendering hotel page: \n', strng
 	return render_template('HotelMap.html', hotels_data = strng )
 
-def fmt_xp_date(date_string):
-	mm = date_string[0:2]
-	dd = date_string[3:5]
-	yyyy = date_string[6:]
-	date = "%s-%s-%s" % (yyyy,mm,dd)
-	return date
 
 def fmt_xp_ll(latlon_string):
 	lat, lon = latlon_string.split(',')
 	ll = (float(lat), float(lon))
 	return ll
+
+def get_avg_ll(lat_lons):
+	lat_sum = 0
+	lon_sum = 0
+	for ll in lat_lons:
+		lat_sum += ll[0]
+		lon_sum += ll[1]
+	lat_avg = lat_sum / len(lat_lons)
+	lon_avg = lon_sum / len(lat_lons)
+	return (lat_avg, lon_avg)
 
 def get_hotel_params(request):
 	#get string params
@@ -44,12 +52,13 @@ def get_hotel_params(request):
 	str_nightlife_ll = request.args.get('nll')
 	#convert to actual objects
 	guests = int(str_guests)
-	date = (fmt_xp_date(str_date_from), fmt_xp_date(str_date_to))
+	dates = (str_date_from, str_date_to)
 	food_ll = fmt_xp_ll(str_food_ll)
 	entertainment_ll = fmt_xp_ll(str_entertainment_ll)
 	nightlife_ll = fmt_xp_ll(str_nightlife_ll)
-	#give me shit
-	return (guests, date, food_ll, entertainment_ll, nightlife_ll)
+	avg_ll = get_avg_ll([food_ll, entertainment_ll, nightlife_ll])
+	return (avg_ll, dates, guests)
+
 # #test locations
 # loc1 = (47.6063889,-122.3308333)
 # loc2 = (47.6226404,-122.3202315)

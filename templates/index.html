@@ -43,14 +43,17 @@ $(document).ready(function () {
     $("#date_start").wijinputdate(
         {
             showTrigger: true,
-            dateFormat: "MM-dd-yyyy",
-            minDate: datepicker_from
+            dateFormat: "yyyy-MM-dd",
+            minDate: datepicker_from,
+            date: datepicker_from
     });
     $("#date_end").wijinputdate(
         {
             showTrigger: true,
-            dateFormat: "MM-dd-yyyy",
-            minDate: datepicker_to
+            dateFormat: "yyyy-MM-dd",
+            minDate: datepicker_from,
+            date: datepicker_to
+
     });
 
     function load_experience_results() {
@@ -107,7 +110,7 @@ $(document).ready(function () {
 
     var date_from = $("#date_start").val();
     var date_to = $("#date_end").val();
-    var guests = $('guests').val(); 
+    var guests = $('#guests').val(); 
 
     var food_selection = document.getElementById( "food-type" );
     food_selection = food_selection.options[ food_selection.selectedIndex ].value;
@@ -118,7 +121,7 @@ $(document).ready(function () {
     var nightlife_selection = document.getElementById( "nightlife-type" );
     nightlife_selection = nightlife_selection.options[ nightlife_selection.selectedIndex ].value;
 
-    var url = 
+    var url = 'HotelMap?' +
       'df=' + date_from + 
       '&dt=' + date_to + 
       '&g=' + guests + 
@@ -128,6 +131,8 @@ $(document).ready(function () {
 
     console.log(url);
     alert(url);
+
+    document.location.href = url;
 
   }
   </script>
@@ -300,7 +305,7 @@ up politely, shops maniacally, and seeks peace in silence.</h2>
       </li>
 </ul>
 
-            <a  href="HotelMap" class="btn large center" onclick ="getData()"><font color ="#00355f">Find Hotels</font></a>
+            <a  class="btn large center" onclick ="getData()"><font color ="#00355f">Find Hotels</font></a>
           </div>
         </div>
       </div>
