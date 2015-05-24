@@ -18,13 +18,15 @@ def renderMainPage():
 
 @app.route("/HotelMap", methods=["GET"])
 def renderMapPage():
-	hotel_params = get_hotel_params(request)
+	hotel_params, experience_poi = get_hotel_params_and_poi(request)
 	print 'hotel params are: ', hotel_params
+	print 'poi are: ', experience_poi
 	#avg_ll, dates, guests = hotel_params
-	strng = json.dumps(getHotelsInAvgLocation(hotel_params[0], hotel_params[1], hotel_params[2]))
+	hotel_strng = json.dumps(getHotelsInAvgLocation(hotel_params[0], hotel_params[1], hotel_params[2]))
+	poi_strng = json.dumps(experience_poi)
 	#strng = json.dumps(getHotelsInAvgLocation((47.6063889,-122.3308333), ('2015-05-25', '2015-05-28'), 2))
-	print 'rendering hotel page: \n', strng
-	return render_template('HotelMap.html', hotels_data = strng )
+	print 'rendering hotel page: \n', hotel_strng
+	return render_template('HotelMap.html', hotels_data = hotel_strng, poi_data = poi_strng )
 
 
 def fmt_xp_ll(latlon_string):
@@ -42,14 +44,14 @@ def get_avg_ll(lat_lons):
 	lon_avg = lon_sum / len(lat_lons)
 	return (lat_avg, lon_avg)
 
-def get_hotel_params(request):
+def get_hotel_params_and_poi(request):
 	#get string params
 	str_date_from = request.args.get('df')
 	str_date_to = request.args.get('dt')
 	str_guests = request.args.get('g')
-	str_food_ll = request.args.get('fll')
-	str_entertainment_ll = request.args.get('ell')
-	str_nightlife_ll = request.args.get('nll')
+	str_food_ll, str_food_name = request.args.get('fll').split('~')
+	str_entertainment_ll, str_entertainment_name = request.args.get('ell').split('~')
+	str_nightlife_ll, str_nightlife_name = request.args.get('nll').split('~')
 	#convert to actual objects
 	guests = int(str_guests)
 	dates = (str_date_from, str_date_to)
@@ -57,7 +59,15 @@ def get_hotel_params(request):
 	entertainment_ll = fmt_xp_ll(str_entertainment_ll)
 	nightlife_ll = fmt_xp_ll(str_nightlife_ll)
 	avg_ll = get_avg_ll([food_ll, entertainment_ll, nightlife_ll])
-	return (avg_ll, dates, guests)
+	# get poi dictionary
+	food_poi = get_poi_dictionary(str_food_name, food_ll)
+	entertainment_poi = get_poi_dictionary(str_entertainment_name, entertainment_ll)
+	nightlife_poi = get_poi_dictionary(str_nightlife_name, nightlife_ll)
+	poi = [food_poi, entertainment_poi, nightlife_poi]
+	return ((avg_ll, dates, guests), poi) 
+
+def get_poi_dictionary(name, ll):
+	return {"Name": name, "Location": {"Latitude": str(ll[0]), "Longitude": str(ll[1])}}
 
 # #test locations
 # loc1 = (47.6063889,-122.3308333)

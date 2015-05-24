@@ -59,9 +59,10 @@ var infowindow;
 //console.log(JSON.parse({{hotels_data|safe}}));
 var results = {{hotels_data|safe}};
 console.log(results);
-var experiencePlaces = [{"Name": "McDonald's", "Location": {"Latitude": "45.529863", "Longitude": "-73.577013"}}, 
-	{"Name": "Theatre", "Location": {"Latitude": "45.529231", "Longitude": "-73.578462"}}, 
-	{"Name": "Night Club", "Location": {"Latitude": "45.529673", "Longitude": "-73.577673"}}];
+var experiencePlaces = {{poi_data|safe}};
+// var experiencePlaces = [{"Name": "McDonald's", "Location": {"Latitude": "45.529863", "Longitude": "-73.577013"}}, 
+// 	{"Name": "Theatre", "Location": {"Latitude": "45.529231", "Longitude": "-73.578462"}}, 
+// 	{"Name": "Night Club", "Location": {"Latitude": "45.529673", "Longitude": "-73.577673"}}];
 
 var markers = new Array();
 var experienceMarkers = new Array();

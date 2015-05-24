@@ -125,9 +125,9 @@ $(document).ready(function () {
       'df=' + date_from + 
       '&dt=' + date_to + 
       '&g=' + guests + 
-      '&fll=' + experience_results[food_selection]['lat'] + ',' + experience_results[food_selection]['lon'] + 
-      '&ell=' + experience_results[entertainment_selection]['lat'] + ',' + experience_results[entertainment_selection]['lon'] + 
-      '&nll=' + experience_results[nightlife_selection]['lat'] + ',' + experience_results[nightlife_selection]['lon'];
+      '&fll=' + experience_results[food_selection]['lat'] + ',' + experience_results[food_selection]['lon'] + '~' + experience_results[food_selection]['name'] +
+      '&ell=' + experience_results[entertainment_selection]['lat'] + ',' + experience_results[entertainment_selection]['lon'] + '~' + experience_results[entertainment_selection]['name'] +
+      '&nll=' + experience_results[nightlife_selection]['lat'] + ',' + experience_results[nightlife_selection]['lon'] + '~' + experience_results[nightlife_selection]['name'];
 
     console.log(url);
     alert(url);
