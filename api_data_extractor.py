@@ -8,11 +8,13 @@ EXPEDIA_API_KEY = '2lV731SuJdeTFSvmWHR9LBMJAZsPc6e2'
 EXPEDIA_BASE_URL = 'http://terminal2.expedia.com:80/x/hotels?'
 
 #test locations
+'''
 loc1 = (47.6063889,-122.3308333)
 loc2 = (47.6226404,-122.3202315)
 loc3 = (47.6738591,-122.3978372)
 date = ('2015-05-25', '2015-05-28')
 number_of_people = 2
+'''
 
 # compute avg location
 def getAvgLocation(location_1, location_2, location_3):
