@@ -32,15 +32,52 @@
 <script src="http://cdn.wijmo.com/interop/wijmo.data.ajax.3.20151.69.js" type="text/javascript"></script>
 
 <script type="text/javascript">
+
+var experience_results = {{location_data|safe}};
+
 $(document).ready(function () {
-    $("#textbox1").wijinputdate(
+    var MIN_DATE_DIFF = 2;
+    var datepicker_from =  new Date();
+    var datepicker_to = new Date(datepicker_from.getTime()+(MIN_DATE_DIFF*24*60*60*1000));
+
+    $("#date_start").wijinputdate(
         {
-            showTrigger: true
+            showTrigger: true,
+            dateFormat: "MM-dd-yyyy",
+            minDate: datepicker_from
     });
-    $("#textbox2").wijinputdate(
+    $("#date_end").wijinputdate(
         {
-            showTrigger: true
+            showTrigger: true,
+            dateFormat: "MM-dd-yyyy",
+            minDate: datepicker_to
     });
+
+    function load_experience_results() {
+      console.log('loading experience results!');
+      for (var idx = 0; idx < experience_results.length; idx++) { 
+        var experience = experience_results[idx];
+
+        var experienceselector = "";
+        switch(experience['categoryname']) {
+          case "Food":
+            experienceselector = "food-type";
+            break;
+          case "Entertainment":
+            experienceselector = "entertainment-type";
+            break;
+          case "Nightlife":
+            experienceselector = "nightlife-type";
+            break;
+        } 
+        console.log(experienceselector);
+        var experience_select = document.getElementById(experienceselector);
+        experience_select.options[experience_select.options.length] = new Option(experience['yelptag'], idx);
+        console.log(experience);
+      }
+    }
+    load_experience_results();
+
 });
 </script>
 
@@ -51,6 +88,7 @@ $(document).ready(function () {
       margin: 0px;
       padding: 0px
     }
+
   </style>
   </head>
   <body class=" en-CA" id="cities_show_page">
@@ -67,7 +105,29 @@ $(document).ready(function () {
     var e3 = document.getElementById("nightlife-type");
     var optNight= e3.options[e3.selectedIndex].text;
 
-    alert(optFood + optEnter + optNight);
+    var date_from = $("#date_start").val();
+    var date_to = $("#date_end").val();
+    var guests = $('guests').val(); 
+
+    var food_selection = document.getElementById( "food-type" );
+    food_selection = food_selection.options[ food_selection.selectedIndex ].value;
+
+    var entertainment_selection = document.getElementById( "entertainment-type" );
+    entertainment_selection = entertainment_selection.options[ entertainment_selection.selectedIndex ].value;
+
+    var nightlife_selection = document.getElementById( "nightlife-type" );
+    nightlife_selection = nightlife_selection.options[ nightlife_selection.selectedIndex ].value;
+
+    var url = 
+      'df=' + date_from + 
+      '&dt=' + date_to + 
+      '&g=' + guests + 
+      '&fll=' + experience_results[food_selection]['lat'] + ',' + experience_results[food_selection]['lon'] + 
+      '&ell=' + experience_results[entertainment_selection]['lat'] + ',' + experience_results[entertainment_selection]['lon'] + 
+      '&nll=' + experience_results[nightlife_selection]['lat'] + ',' + experience_results[nightlife_selection]['lon'];
+
+    console.log(url);
+    alert(url);
 
   }
   </script>
@@ -103,27 +163,37 @@ $(document).ready(function () {
         <h1 class="circularbold">Montreal</h1>
         <h2>An entrancing city on an island of extremes, Montreal suits
 up politely, shops maniacally, and seeks peace in silence.</h2>
+<div>
+  Check-in
+  <input type="text" id="date_start" />
+  Check-out
+  <input type="text" id="date_end" />
+  Guests
+  <select  id="guests" style="margin:10px; width:100px; padding:0px;" >
+    {% for guest_val in range(1, 13) %}
+      <option value="{{ guest_val }}">{{ guest_val }}</option>
+    {% endfor %}
+  </select>
+</div>
+
         <a class="btn large" onclick="pageScroll()"> <font color ="#00355f">Choose Your Experience</font></a>
 
         <script>
         function pageScroll() {
-          window.scrollBy(0,1000);
+          window.scrollBy(0,500);
         }
         </script>
       </div>
     </div>
   </div>
  </div>
-  Check-in
-  <input type="text" id="textbox1" />
-  Check-out
-  <input type="text" id="textbox2" />
+
     <div class="featured-neighborhoods section">
       <div class="container">
         <div class="row">
           <div class="span12  center">
             <h2 class="circularbold">
-              Featured Exeriences
+              Featured Experiences
             </h2>
             <p class="lede">Explore Montreal</p>
             <ul class=" neighborhoods">
@@ -294,57 +364,35 @@ up politely, shops maniacally, and seeks peace in silence.</h2>
 
 <script>
 // load in the data for the locations into the drop downs
+// var experience_results = {{location_data|safe}};
+// console.log(experience_results);
+
+// for (var idx = 0; idx < experience_results.length; idx++) { 
+//   var experience = experience_results[idx];
+
+//   var experienceselector = "";
+//   switch(experience['categoryname']) {
+//     case "Food":
+//       experienceselector = "food-type";
+//       break;
+//     case "Entertainment":
+//       experienceselector = "entertainment-type";
+//       break;
+//     case "Nightlife":
+//       experienceselector = "nightlife-type";
+//       break;
+//   } 
+//   console.log(experienceselector);
+//   var experience_select = document.getElementById(experienceselector);
+//   experience_select.options[experience_select.options.length] = new Option(experience['yelptag'], idx);
+
+//   console.log(experience);
+// } 
 
 
-var experience_results = {{location_data|safe}};
-console.log(experience_results);
-
-
-for (var idx = 0; idx < experience_results.length; idx++) { 
-  var experience = experience_results[idx];
-
-  var experienceselector = "";
-  switch(experience['categoryname']) {
-    case "Food":
-      experienceselector = "food-type";
-      break;
-    case "Entertainment":
-      experienceselector = "entertainment-type";
-      break;
-    case "Nightlife":
-      experienceselector = "nightlife-type";
-      break;
-  } 
-  console.log(experienceselector);
-  var experience_select = document.getElementById(experienceselector);
-  experience_select.options[experience_select.options.length] = new Option(experience['yelptag'], idx);
-
-  console.log(experience);
-} 
-
-
-var date_from = '01012015';
-var date_to = '01032015';
-var guests = 5;
-
-var food_selection = document.getElementById( "food-type" );
-food_selection = food_selection.options[ food_selection.selectedIndex ].value;
-
-var entertainment_selection = document.getElementById( "entertainment-type" );
-entertainment_selection = entertainment_selection.options[ entertainment_selection.selectedIndex ].value;
-
-var nightlife_selection = document.getElementById( "nightlife-type" );
-nightlife_selection = nightlife_selection.options[ nightlife_selection.selectedIndex ].value;
-
-var url = 
-  'df=' + date_from + 
-  '&dt=' + date_to + 
-  '&g=' + guests + 
-  '&fll=' + experience_results[food_selection]['lat'] + ',' + experience_results[food_selection]['lon'] + 
-  '&ell=' + experience_results[entertainment_selection]['lat'] + ',' + experience_results[entertainment_selection]['lon'] + 
-  '&nll=' + experience_results[nightlife_selection]['lat'] + ',' + experience_results[nightlife_selection]['lon'];
-
-console.log(url);
+// var date_from = '01012015';
+// var date_to = '01032015';
+// var guests = 5;
 
 
 </script>
