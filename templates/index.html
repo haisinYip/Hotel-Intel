@@ -28,6 +28,22 @@
   </style>
   </head>
   <body class=" en-CA" id="cities_show_page">
+  
+  <script>
+  function getData(){
+    var e1 = document.getElementById("food-type");
+    var optFood= e1.options[e1.selectedIndex].text;
+
+    var e2 = document.getElementById("entertainment-type");
+    var optEnter= e2.options[e2.selectedIndex].text;
+
+    var e3 = document.getElementById("nightlife-type");
+    var optNight= e3.options[e3.selectedIndex].text;
+
+    alert(optFood + optEnter + optNight);
+
+  }
+  </script>
 
     <div class="cities-wrapper">
 <div id="sticky_nav" class="navbar navbar-black">
@@ -199,7 +215,7 @@ up politely, shops maniacally, and seeks peace in silence.</h2>
   <div class="center panel-padding">
     <h2>Nightlife</h2>
     <!--<p>English speaking and Upscale.</p>-->
-     <select id="food-type" data-wizard-action="{&quot;cruiseDestination&quot; : &quot;$value1&quot;}" class="" data-select-value="" name="select" data-wizard-owner="destination"> 
+     <select id="nightlife-type" data-wizard-action="{&quot;cruiseDestination&quot; : &quot;$value1&quot;}" class="" data-select-value="" name="select" data-wizard-owner="destination"> 
 <option value=" Pubs "> Pubs  </option>
 <option value=" Tapas/Small Plates "> Tapas/Small Plates  </option>
 <option value=" Wine Bars "> Wine Bars  </option>
@@ -235,7 +251,7 @@ up politely, shops maniacally, and seeks peace in silence.</h2>
       </li>
 </ul>
 
-            <a  id="FindButton" href="HotelMap" class="btn large center" ><font color ="#00355f">Find Hotels</font></a>
+            <a  href="HotelMap" class="btn large center" onclick ="getData()"><font color ="#00355f">Find Hotels</font></a>
           </div>
         </div>
       </div>
