@@ -26,27 +26,4 @@ def getHotelsInAvgLocation(avg_location, date, number_of_people):
 	query = 'maxhotels=10&location=' + str(avg_location[0]) + '%2C%20' + str(avg_location[1]) + '&radius=2km&checkInDate=' + date[0] + '&checkOutDate=' + date[1] + '&adults=' + str(number_of_people) + '&sort=price&apikey=' + EXPEDIA_API_KEY
 	url = EXPEDIA_BASE_URL + query
 	response = json.load(urllib2.urlopen(url))
-	'''
-	hotels_stripped_data = []
-	hotel_info_list = response['HotelInfoList']['HotelInfo']
-	for hotel in hotel_info_list:
-	    geo_loc = hotel['Location']['GeoLocation']
-	    street_addr = hotel['Location']['StreetAddress']
-	    thumbnail_url = hotel['ThumbnailUrl']
-	    details_url = hotel['DetailsUrl']
-	    total_rate = hotel['Price']['TotalRate']
-	    star_rating = hotel['StarRating']
-	    description = hotel['Description']
-
-	    hotel_data = { 'lat':geo_loc['Latitude'], 'lon':geo_loc['Longitude'], 'street_addr':street_addr, 'thumbnail_url':thumbnail_url, 'details_url':details_url, 'total_rate':total_rate, 'star_rating':star_rating, 'description':description }
-	    hotels_stripped_data.append(hotel_data)
-
-	return hotels_stripped_data
-	'''
 	return response
-	
-avg_loc = getAvgLocation(loc1, loc2, loc3)
-hotels = getHotelsInAvgLocation(avg_loc, date, number_of_people)
-
-if __name__ == "__main__":
-    print hotels
