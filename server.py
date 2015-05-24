@@ -50,8 +50,6 @@ def get_hotel_params(request):
 	nightlife_ll = fmt_xp_ll(str_nightlife_ll)
 	#give me shit
 	return (guests, date, food_ll, entertainment_ll, nightlife_ll)
-
-
 # #test locations
 # loc1 = (47.6063889,-122.3308333)
 # loc2 = (47.6226404,-122.3202315)
@@ -68,5 +66,5 @@ def get_hotel_params(request):
 #   '&nll=' + experience_results[nightlife_selection]['lat'] + ',' + experience_results[nightlife_selection]['lon'];
 
 
-if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0')
+if __name__ == '__main__':
+	app.run(debug=True, host='0.0.0.0')
