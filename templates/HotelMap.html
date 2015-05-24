@@ -72,6 +72,10 @@ var redMarkerURL = "http://imgur.com/6eGus1F.png";
 var greenMarkerURL = "http://imgur.com/QNFKk2p.png";
 var experienceMarkerURL = "http://imgur.com/Ztc6QMl.png";
 
+var experienceMarkerURL_food = "https://cdn3.iconfinder.com/data/icons/mixed-3d-icons/512/Retail_3D-48.png";
+var experienceMarkerURL_entertainment = "https://cdn3.iconfinder.com/data/icons/mixed-3d-icons/512/QQ_3D-48.png";
+var experienceMarkerURL_nightlife = "https://cdn3.iconfinder.com/data/icons/mixed-3d-icons/512/celebration-48.png";
+
 function initialize() 
 {
 	map = new google.maps.Map(document.getElementById('map-canvas'));
@@ -134,11 +138,27 @@ function initialize()
 			experienceMarkers.push(new google.maps.Marker({
 				map: map,
 				position: pos,
-				icon: experienceMarkerURL
+				icon: getExperienceMarkerURL(i)
 			}));
 			
 			setExperienceMarkerListener(experienceMarkers[i], experiencePlaces[i]);
 		}
+}
+
+function getExperienceMarkerURL(experience_index) {
+	var url = '';
+	switch(experience_index) {
+		case 0: 
+			url = experienceMarkerURL_food;
+			break;
+		case 1: 
+			url = experienceMarkerURL_entertainment;
+			break;
+		case 2: 
+			url = experienceMarkerURL_nightlife;
+			break;
+	}
+	return url;
 }
 
 function setMarkerListener(marker, place, i)
