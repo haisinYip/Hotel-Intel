@@ -5,7 +5,7 @@
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 	<meta charset="utf-8">
 	
-	<!--<style>
+	<style>
 		html, body {
 			height: 100%;
 			width: 100%;
@@ -50,7 +50,7 @@
 			border: 3px solid #36A345;
 			white-space: nowrap;
 		}
-	</style>-->
+	</style>
 
 	<link href="../static/a2.css" media="all" rel="stylesheet" type="text/css" />
     <link href="../static/a0.css" media="screen" rel="stylesheet" type="text/css" />
@@ -222,24 +222,19 @@ google.maps.event.addDomListener(window, 'load', initialize);
 	</head>
 	<body>
 		<!-- <div><h1>Hotel Map</h1></div> -->
-		<div id = "map-canvas"></div>
-		<div  class="circularbold" id = "hotel-info" >
-			<span class="circularbold"  style = "font-size: 2em" id = "name"></span><br>
-			<span  class="circularbold" id = "address"></span><br><br>
-			<div  class="circularbold" style = "float:left"><img src = "" id = "hotelimg"></div>
-			<div  class="circularbold" style = "margin-left: 75px" id = "description"></div>
+		<div class="circularbold"  id="map-canvas"></div>
+		<div  class="circularbold" id = "hotel-info" style="padding-top: 20px" >
+			<span style = "font-size: 2em" id = "name"></span><br>
+			<span id="address"></span><br><br>
+			<div style = "float:left"><img src = "" id = "hotelimg"></div>
+			<div style = "margin-left: 75px" id = "description"></div>
 			<br>
-			<div  class="circularbold">
+			<div >
 			<b>Total rate:</b> <span id = "rate"></span><br>
 			<b>Star rating:</b> <span id = "rating"></span>/5.0<br>
 			<br><br>
 			<p style = "text-align:center"><a href = "" target="_blank" id = "details">Click here for more info</a></p>
 			</div>
-		</div>
-		<div id = "legend" style = "position: absolute; top: 700px">
-		<b>Legend</b><br>
-		Red/green: Hotel<br>
-		Blue: Experience point
 		</div>
 	</body>
 </html>
