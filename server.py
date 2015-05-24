@@ -9,7 +9,11 @@ app = Flask(__name__, static_url_path='/static')
 
 @app.route("/", methods=["GET"])
 def renderMainPage():
-	return render_template('index.html')
+	locationdata = getExperienceOptions()
+	print 'displaying console data\n\n', locationdata
+	user = request.args.get('user') or ''
+	print'user is ', user
+	return render_template('index.html', location_data=json.dumps(locationdata))
 
 @app.route("/HotelMap", methods=["GET"])
 def renderMapPage():

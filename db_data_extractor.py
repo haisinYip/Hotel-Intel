@@ -50,6 +50,10 @@ def getLocationData(data):
         results.append({'categoryid' : categoryid, 'categoryname' : categoryname, 'yelptag' : yelptag, 'locationid' : locationid, 'name' : name, 'url' : url, 'img_url' : img_url, 'lat' : lat, 'lon' : lon})
     return results
 
-if __name__ == '__main__':
+def getExperienceOptions():
     dbdata = getLocationDataFromDB()
     locationdata = getLocationData(dbdata)
+    return locationdata
+
+if __name__ == '__main__':
+    locationdata = getExperienceOptions()

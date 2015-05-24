@@ -114,9 +114,8 @@ function setInfoWindow(marker, name, i)
   });
 }
 google.maps.event.addDomListener(window, 'load', initialize);
+
   </script>
-
-
 
 
 
@@ -181,7 +180,7 @@ up politely, shops maniacally, and seeks peace in silence.</h2>
     <h2>Food</h2>
 
     <select id="food-type" data-wizard-action="{&quot;cruiseDestination&quot; : &quot;$value1&quot;}" class="" data-select-value="" name="select" data-wizard-owner="destination"> 
-<option value=" French "> French  </option>
+<!-- <option value=" French "> French  </option>
 <option value=" Breakfast & Brunch "> Breakfast & Brunch  </option>
 <option value=" Canadian (New) "> Canadian (New)  </option>
 <option value=" Burgers "> Burgers  </option>
@@ -206,20 +205,20 @@ up politely, shops maniacally, and seeks peace in silence.</h2>
 <option value=" Korean "> Korean  </option>
 <option value=" Fish & Chips "> Fish & Chips  </option>
 <option value=" Venezuelan "> Venezuelan  </option>
-
+ -->
     </select> 
     <!--<p>Trendy and Cool</p>-->
   </div>
 </div>
 <div class="blurb">
     <div class="panel-padding center clearfix neighborhood-tags">
-      <div class="neighborhood-tag">Food Festivals
+      <div class="neighborhood-tag">european
     <div class="dot"></div>
 </div>
-<div class="neighborhood-tag">Pho Challenge
+<div class="neighborhood-tag">lively
     <div class="dot"></div>
 </div>
-<div class="neighborhood-tag">Smoked Meat Sandwhiches
+<div class="neighborhood-tag">where cool kids hang out
 </div>
 
     </div>
@@ -240,7 +239,7 @@ up politely, shops maniacally, and seeks peace in silence.</h2>
     <h2>Entertainment</h2>
     <!--<p>Down-to-Earth and Affordable</p>-->
      <select id="entertainment-type" data-wizard-action="{&quot;cruiseDestination&quot; : &quot;$value1&quot;}" class="" data-select-value="" name="select" data-wizard-owner="destination">   
-<option value=" Bars "> Bars  </option>
+<!-- <option value=" Bars "> Bars  </option>
 <option value=" Music Venues "> Music Venues  </option>
 <option value=" Dance Clubs "> Dance Clubs  </option>
 <option value=" Performing Arts "> Performing Arts  </option>
@@ -264,21 +263,21 @@ up politely, shops maniacally, and seeks peace in silence.</h2>
 <option value=" Antiques "> Antiques  </option>
 <option value=" Art Galleries "> Art Galleries  </option>
 <option value=" Sporting Goods "> Sporting Goods  </option>
-       </select> 
+ -->       </select> 
   </div>
 </div>
 <div class="blurb">
     <div class="panel-padding center clearfix neighborhood-tags">
-      <div class="neighborhood-tag">Riots
+      <div class="neighborhood-tag">rejunentated
     <div class="dot"></div>
 </div>
-<div class="neighborhood-tag">Shopping in Downtown 
+<div class="neighborhood-tag">famed market
     <div class="dot"></div>
 </div>
-<div class="neighborhood-tag">Comedy clubs
+<div class="neighborhood-tag">trendy restaurants
     <div class="dot"></div>
 </div>
-<div class="neighborhood-tag">Casino
+<div class="neighborhood-tag">hip
 </div>
 
     </div>
@@ -298,26 +297,26 @@ up politely, shops maniacally, and seeks peace in silence.</h2>
   <div class="center panel-padding">
     <h2>Nightlife</h2>
     <!--<p>English speaking and Upscale.</p>-->
-     <select id="food-type" data-wizard-action="{&quot;cruiseDestination&quot; : &quot;$value1&quot;}" class="" data-select-value="" name="select" data-wizard-owner="destination"> 
-<option value=" Pubs "> Pubs  </option>
+     <select id="nightlife-type" data-wizard-action="{&quot;cruiseDestination&quot; : &quot;$value1&quot;}" class="" data-select-value="" name="select" data-wizard-owner="destination"> 
+<!-- <option value=" Pubs "> Pubs  </option>
 <option value=" Tapas/Small Plates "> Tapas/Small Plates  </option>
 <option value=" Wine Bars "> Wine Bars  </option>
 <option value=" Sports Bars "> Sports Bars  </option>
 <option value=" Lounges "> Lounges  </option>
 <option value=" Mexican "> Mexican  </option>
-<option value=" American (Traditional) "> American (Traditional)  </option>
+<option value=" American (Traditional) "> American (Traditional)  </option> -->
       </select> 
   </div>
 </div>
 <div class="blurb">
     <div class="panel-padding center clearfix neighborhood-tags">
-      <div class="neighborhood-tag">Fun Nightclubs
+      <div class="neighborhood-tag">Upperclass
     <div class="dot"></div>
 </div>
-<div class="neighborhood-tag">Classy Lounges
+<div class="neighborhood-tag">Extravagant manors
     <div class="dot"></div>
 </div>
-<div class="neighborhood-tag">Magical Raves
+<div class="neighborhood-tag">Quality infrasctructure
 </div>
 
 
@@ -395,5 +394,40 @@ up politely, shops maniacally, and seeks peace in silence.</h2>
    
     
    
+
+<script>
+// load in the data for the locations into the drop downs
+
+
+var experience_results = {{location_data|safe}};
+console.log(experience_results);
+
+
+for (var idx = 0; idx < experience_results.length; idx++) { 
+  var experience = experience_results[idx];
+
+  var experienceselector = "";
+  switch(experience['categoryname']) {
+    case "Food":
+      experienceselector = "food-type";
+      break;
+    case "Entertainment":
+      experienceselector = "entertainment-type";
+      break;
+    case "Nightlife":
+      experienceselector = "nightlife-type";
+      break;
+  } 
+  console.log(experienceselector);
+  var experience_select = document.getElementById(experienceselector);
+  experience_select.options[experience_select.options.length] = new Option(experience['yelptag'], experience['locationid']);
+
+  console.log(experience);
+} 
+
+
+
+</script>
+
   </body>
 </html>
